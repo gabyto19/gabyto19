@@ -36,33 +36,52 @@
 
 
     <?php
+       
+            function regis(){
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "singup";
+            $fname = $_POST['firstname'];
+            $lname = $_POST['lastname'];
+            $email = $_POST['email'];
 
-        if(array_key_exists('register', $_POST)) {
-            regis();
-        }
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            // set the PDO error mode to exception
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "INSERT INTO data (firstname, lastname, email)
+                VALUES ('$fname','$lname','$email')";
+            // use exec() because no results are returned
+            $conn->exec($sql);
 
-        function regis(){
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "singup";
-        $fname = $_POST['firstname'];
-        $lname = $_POST['lastname'];
-        $email = $_POST['email'];
+            $conn = null;
+            }
 
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO data (firstname, lastname, email)
-            VALUES ('$fname','$lname','$email')";
-        // use exec() because no results are returned
-        $conn->exec($sql);
+    ?>
 
-      $conn = null;
-        }
+<script>
+    document.getElementById("register").onclick = function() {register()};
+    function register()
+    {
+        <?php regis(); ?>
+    } 
 
-        
-?>
+$('.main-form').submit(function (e) { 
+    let data  = $(this).serialize();
+    e.preventDefault();
+   
+    $.ajax({
+    type: "post",
+    url: "",
+    data: data,
+    success: function (response) {
+        $('.main-form')[0].reset();
+    }
+});
+
+});
+
+</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
