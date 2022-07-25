@@ -37,7 +37,7 @@
 
     <?php
        
-            function regis(){
+            
             $servername = "localhost";
             $username = "root";
             $password = "";
@@ -55,18 +55,13 @@
             $conn->exec($sql);
 
             $conn = null;
-            }
+            
 
     ?>
 
 <script>
-    document.getElementById("register").onclick = function() {register()};
-    function register()
-    {
-        <?php regis(); ?>
-    } 
 
-$('.main-form').submit(function (e) { 
+    $('.main-form').submit(function (e) { 
     let data  = $(this).serialize();
     e.preventDefault();
    
